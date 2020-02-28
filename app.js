@@ -1,7 +1,21 @@
 
 const express = require('../mean-course-ui/node_modules/express');
 const bodyParser = require('../mean-course-ui/node_modules/body-parser');
+const Post = require('./models/post');
+const mongoose = require('../mean-course-ui/node_modules/mongoose');
+
 const app = express();
+
+mongoose.connect("mongodb+srv://dba:9AJR7irL4JI4JCcy@cluster0-plu1x.mongodb.net/test?retryWrites=true&w=majority").then(
+    () => {
+        console.log("Connected to database!");
+    }
+)
+.catch(
+    () => {
+        console.log("Connection Failed!");
+    }
+);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded( {extended: false} ));
@@ -20,7 +34,10 @@ app.use(
 
 app.post("/api/posts",
     (req, res, next)=>{
-        const post = req.body;
+        const post = new Post({
+            title: req.body.title,
+            Content: req.body.Content
+        });
         console.log(post);
         res.status(201).json(
             {
