@@ -1,0 +1,1 @@
+To start the backend: /mean-course-ui/npm run start:server (nodemon)
