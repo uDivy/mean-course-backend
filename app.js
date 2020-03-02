@@ -6,12 +6,11 @@ const mongoose = require('../mean-course-ui/node_modules/mongoose');
 
 const app = express();
 
-mongoose.connect("mongodb+srv://dba:9AJR7irL4JI4JCcy@cluster0-plu1x.mongodb.net/test?retryWrites=true&w=majority").then(
+mongoose.connect("mongodb+srv://dba:9AJR7irL4JI4JCcy@cluster0-plu1x.mongodb.net/node-angular?retryWrites=true&w=majority").then(
     () => {
         console.log("Connected to database!");
     }
-)
-.catch(
+).catch(
     () => {
         console.log("Connection Failed!");
     }
@@ -38,35 +37,45 @@ app.post("/api/posts",
             title: req.body.title,
             Content: req.body.Content
         });
-        console.log(post);
-        res.status(201).json(
-            {
-                message: "Post Created Successfully!",
+        post.save().then(
+            createdPost => {
+                res.status(201).json(
+                    {
+                        message: "Post Created Successfully!",
+                        postId: createdPost._id
+                    }
+                );
             }
         );
+        
     }
 );
 
 app.get("/api/posts",
     (req, res, next) => {
-        const posts = [
-            {
-                'id': "asd123",
-                'title': "First Post",
-                'Content': "My first content"
-            },
-            {
-                'id': "zxc123",
-                'title': "Second Post",
-                'Content': "My second content"
-            }
-        ];
-        res.status(200).json(
-            {
-                messages: "Post Sent Successfully!",
-                posts: posts
+        Post.find().then(
+            (documents) => {
+                res.status(200).json(
+                    {
+                        messages: "Post Sent Successfully!",
+                        posts: documents
+                    }
+                );
             }
         );
+    }
+);
+
+app.delete("/api/posts/:id",
+    (req, res, next) => {
+        Post.deleteOne({_id: req.params.id}).then(
+            result => {
+                console.log(result);
+            }
+        )
+        res.status(200).json({
+            message: "Post deleted"
+        });
     }
 );
 
