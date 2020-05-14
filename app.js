@@ -1,4 +1,4 @@
-
+const path = require("path");
 const express = require('../mean-course-ui/node_modules/express');
 const bodyParser = require('../mean-course-ui/node_modules/body-parser');
 const mongoose = require('../mean-course-ui/node_modules/mongoose');
@@ -18,6 +18,7 @@ mongoose.connect("mongodb+srv://dba:9AJR7irL4JI4JCcy@cluster0-plu1x.mongodb.net/
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded( {extended: false} ));
+app.use("/images", express.static(path.join("../mean-course-backend/images")));
 
 app.use(
     (req, res, next) => {
