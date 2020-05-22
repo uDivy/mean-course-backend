@@ -77,7 +77,8 @@ router.post(
                 res.status(200).json(
                     {
                         token: token,
-                        expiresIn: 3600
+                        expiresIn: 3600,
+                        userId: fetchedUser._id
                     }
                 );
             }
