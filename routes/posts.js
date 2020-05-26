@@ -57,6 +57,12 @@ router.post("",
                     }
                 );
             }
+        ).catch(
+            error => {
+                res.status(500).json({
+                    message: "Creating a post failed!"
+                })
+            }
         );
         
     }
@@ -94,6 +100,14 @@ router.put("/:id",
                     );
                 }
             }
+        ).catch(
+            error => {
+                res.status(500).json(
+                    {
+                        message: "Couldn't update post!"
+                    }
+                );
+            }
         );
     }
 );
@@ -123,6 +137,12 @@ router.get("",
                     }
             )
             }
+            ).catch(
+                error => {
+                    res.status(500).json({
+                        message: "Fetching posts failed!"
+                    });
+                }
             );
     }
 );
@@ -142,7 +162,13 @@ router.get("/:id",
                     );
                 }
             }
-        );
+        ).catch(
+            error => {
+                res.status(500).json({
+                    message: "Fetching post failed!"
+                });
+            }
+        );;
     }
 );
 
@@ -164,7 +190,13 @@ router.delete("/:id",
                     }
                 );
             }
-        });
+        }).catch(
+            error => {
+                res.status(500).json({
+                    message: "Deleting post failed!"
+                });
+            }
+        );;
     }
 );
 
