@@ -1,4 +1,7 @@
+//  to handle the image upload functionality
+
 const multer = require('../../mean-course-ui/node_modules/multer')
+
 
 const MIME_TYPE_MAP = {
     'image/png' : 'png',
@@ -13,7 +16,7 @@ const storage = multer.diskStorage({
         if (isValid){
             error = null;
         }
-        cb(error, "../mean-course-backend/images"); // this path is relative to server.js file
+        cb(error, "images"); // this path is relative to server.js file
     }, 
     filename: (req, file, cb) => {
         const name = file.originalname.toLowerCase().split(' ').join('-');

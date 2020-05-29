@@ -1,6 +1,6 @@
 const jwt = require('../../mean-course-ui/node_modules/jsonwebtoken')
 
-
+// to verfy the valid token is sent with the request or not
 module.exports = (req, res, next) => {
     try {
         const token = req.headers.authorization.split(" ")[1];
